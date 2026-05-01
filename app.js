@@ -59,7 +59,9 @@ function renderReport(data, score, insights) {
   const low = Math.max(250, Math.round((5 - score.technical) * 350));
   const high = low + 900;
   const role = document.getElementById('roleSelector').value;
-  const shareId = crypto.randomUUID().slice(0, 8);
+  const encoded = btoa(unescape(encodeURIComponent(JSON.stringify({ data, score, insights }))));
+  const base = window.location.origin === 'null' ? window.location.pathname : `${window.location.origin}${window.location.pathname}`;
+  const shareUrl = `${base}?report=${encoded}`;
 
   reportOutput.innerHTML = `
     <h3>${data.brand} ${data.model} (${data.year})</h3>
@@ -77,7 +79,7 @@ function renderReport(data, score, insights) {
     <ul>${insights.map((i) => `<li>${i}</li>`).join('')}</ul>
     <p><strong>Repair estimate:</strong> $${low}–$${high}</p>
     <p><strong>Export:</strong> Use browser print dialog to save as PDF.</p>
-    <p><strong>Shareable link:</strong> https://driveinspect.app/report/${shareId}</p>
+    <p><strong>Shareable link:</strong> <a href="${shareUrl}" target="_blank">${shareUrl}</a></p>
     <p><strong>Access role:</strong> ${role === 'customer' ? 'View only' : 'Can create & manage reports'}</p>
   `;
 }
@@ -99,6 +101,21 @@ function refreshDashboard() {
   document.getElementById('averageScore').textContent = avg;
   document.getElementById('dealRatio').textContent = `${deals}/${bad}`;
   document.getElementById('recentCount').textContent = records.filter((r) => Date.now() - new Date(r.createdAt).getTime() < 1000 * 3600 * 24 * 7).length;
+}
+
+
+function loadSharedReport() {
+  const params = new URLSearchParams(window.location.search);
+  const raw = params.get('report');
+  if (!raw) return;
+  try {
+    const decoded = JSON.parse(decodeURIComponent(escape(atob(raw))));
+    if (!decoded?.data || !decoded?.score || !decoded?.insights) return;
+    renderReport(decoded.data, decoded.score, decoded.insights);
+    document.getElementById('stepLabel').textContent = 'Shared report mode';
+  } catch (err) {
+    console.warn('Invalid shared report payload', err);
+  }
 }
 
 nextBtn.addEventListener('click', () => { currentStep += 1; showStep(currentStep); });
@@ -125,3 +142,4 @@ form.addEventListener('submit', (e) => {
 
 showStep(currentStep);
 refreshDashboard();
+loadSharedReport();

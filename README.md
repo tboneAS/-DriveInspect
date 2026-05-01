@@ -32,3 +32,11 @@ DriveInspect is a modern, mobile-first web application for structured used-car i
 
 ## Run locally
 Open `index.html` in any modern browser.
+
+## Test link (shareable report)
+1. Fill out the inspection wizard and click **Generate Report**.
+2. Copy the generated **Shareable link** from the report section.
+3. Open that URL to view the same report in shared mode.
+
+Example format:
+`http://localhost:8080/index.html?report=<encoded_payload>`
