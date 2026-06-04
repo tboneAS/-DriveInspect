@@ -1,42 +1,52 @@
-# DriveInspect
+# DriveInspect Buchhaltung
 
-DriveInspect is a modern, mobile-first web application for structured used-car inspection and objective deal evaluation.
+DriveInspect Buchhaltung ist eine moderne React/Next.js-MVP-Weboberfläche für selbstständige Kfz-Sachverständige. Die App verbindet Buchhaltung, Rechnungen, Gutachten-Workflows, DSGVO, Steueraufgaben, Fahrtenbuch, Kundenverwaltung und Fahrzeugakten in einer spezialisierten SaaS-Oberfläche.
 
-## Features
-- Role selector for **Admin**, **Inspector**, and **Customer** access context.
-- 5-step inspection wizard:
-  1. Basic data
-  2. Exterior check
-  3. Interior check
-  4. Engine & technical
-  5. Test drive
-- Weighted scoring engine:
-  - Exterior 20%
-  - Interior 15%
-  - Engine & Technical 35%
-  - Test Drive 20%
-  - Price Evaluation 10%
-- Price intelligence (Undervalued/Fair Price/Overpriced) with deviation %.
-- Automated defect insights and recommendations.
-- Professional report output with score bars, repair estimate range, PDF export guidance, and shareable link.
-- Dashboard KPIs:
-  - Total inspections
-  - Average score
-  - Deals vs bad cars ratio
-  - Recent inspections
-- Business features:
-  - Free / Pro pricing cards
-  - Book Inspection CTA
-  - Contact form
-- Local history persistence using browser localStorage.
+## Technik
+- Next.js App Router
+- React Client Components
+- Tailwind CSS mit Dark Mode
+- Responsive Sidebar-/Dashboard-Layout
+- Mock-Daten als spätere Vorbereitung für Supabase oder Firebase
+- Vorbereitete Upload-Felder für Belege, Rechnungen, Fahrzeugbilder und Gutachten
+- Vorbereitete PDF-Export-Aktionen für Rechnungen, Gutachten und Steuerberater-Export
 
-## Run locally
-Open `index.html` in any modern browser.
+## Module
+- Dashboard mit Einnahmen, Ausgaben, Gewinn, Steuerrücklage, Rechnungsstatus, offenen Gutachten, DSGVO- und Steueraufgaben sowie Ampelstatus
+- Einnahmen- und Ausgabenverwaltung mit Eingabemaske, Kategorien, Tabelle, Filtern und Beleg-Upload
+- Sachverständigen-Rechnungsvorlage mit fortlaufender Rechnungsnummer, MwSt-Berechnungsvorbereitung, Kleinunternehmeroption, Status und PDF-Export-Vorschau
+- DSGVO-Checkliste für Kfz-Sachverständige
+- Steuer-Checkliste für Kfz-Gutachter
+- Suchbare Übersicht steuerlich absetzbarer Kosten
+- Digitales Fahrtenbuch mit automatischer Kilometerlogik in den Mock-Daten
+- Kundenverwaltung mit DSGVO-Status, Aufträgen, Rechnungen, Historie und Dokumenten
+- Fahrzeugakten mit VIN, Kennzeichen, Schäden, Bildern und Gutachtenstatus
+- Workflow-Kanban vom Kundenkontakt bis Rechnung und Archivierung
+- Gutachten-/Prüfbericht-Modul mit Prüfbereichen, Bewertung, Risiko-Score und Kaufempfehlung
+- Einstellungen für Firmendaten, Logo, Bankdaten, Steuernummer, Umsatzsteuer, Kleinunternehmerregelung, Standardtexte und Rollen
 
-## Test link (shareable report)
-1. Fill out the inspection wizard and click **Generate Report**.
-2. Copy the generated **Shareable link** from the report section.
-3. Open that URL to view the same report in shared mode.
+## Beispiel-Daten
+Enthalten sind Mock-Daten für:
+- 3 Kunden
+- 3 Fahrzeuge
+- 3 Gutachten
+- 4 Rechnungen
+- 8 Ausgaben
+- 5 Fahrtenbucheinträge
+- 12 DSGVO-Aufgaben
+- 13 Steuer-Aufgaben
+- 10 absetzbare Kostenarten
+- 5 Workflow-Aufträge
 
-Example format:
-`http://localhost:8080/index.html?report=<encoded_payload>`
+## Lokal starten
+```bash
+npm install
+npm run dev
+```
+
+Danach im Browser öffnen:
+```text
+http://localhost:3000
+```
+
+> Hinweis: Die App ist als MVP-Frontend vorbereitet. Für Produktivbetrieb können später Supabase/Firebase, Authentifizierung, echte PDF-Generierung, Datei-Storage und Zahlungsabgleich angebunden werden.
